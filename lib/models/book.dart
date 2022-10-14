@@ -28,7 +28,9 @@ class Book {
     return Book(
         id: json['id'],
         title: bookInfo['title'],
-        authors: List<String>.from(bookInfo['authors']),
+        authors: bookInfo['authors'] != null
+            ? List<String>.from(bookInfo['authors'])
+            : [],
         publisher: bookInfo['publisher'] ?? "Unknown",
         publishedDate: bookInfo['publishedDate'] ?? "",
         description: bookInfo['description'],
