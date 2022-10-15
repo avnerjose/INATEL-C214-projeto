@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:books_app/controllers/fetchBook.dart';
+import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/models/book.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     textEditingController.dispose();
-    ;
+    super.dispose();
   }
 
   Future<void> _getBooks() async {
@@ -32,9 +36,14 @@ class _HomePageState extends State<HomePage> {
         isLoading = true;
       });
       var query = textEditingController.text.split(' ').join("+");
-      _books = await fetchBooksBySearch(query);
+      var books = await fetchBooksBySearch(query);
       setState(() {
+        _books = books;
         isLoading = false;
+      });
+    } else {
+      setState(() {
+        _books = [];
       });
     }
   }
@@ -42,36 +51,41 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(243, 245, 246, 1),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: AppColors.dark,
+          elevation: 0,
+          title: const Text("Lista de livros",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold)),
+          systemOverlayStyle:
+              const SystemUiOverlayStyle(statusBarColor: AppColors.dark),
+        ),
+        backgroundColor: AppColors.background,
         body: SafeArea(
           child: Column(
             children: [
               Container(
-                decoration:
-                    const BoxDecoration(color: Colors.white, boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(0, 0, 0, 0.4),
-                    blurRadius: 5.0,
-                    spreadRadius: 2.0,
-                    offset: Offset(
-                      2.0,
-                      2.0,
-                    ),
-                  )
-                ]),
+                decoration: const BoxDecoration(
+                  color: AppColors.dark,
+                ),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Lista de livros",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
                     TextField(
                       controller: textEditingController,
+                      style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
-                          hintText: "Pesquise um livro",
-                          icon: Icon(Icons.search)),
+                        filled: true,
+                        fillColor: AppColors.background,
+                        hintText: "Pesquise um livro",
+                        hintStyle: TextStyle(color: AppColors.lightGray),
+                        icon: Icon(Icons.search),
+                      ),
                     )
                   ],
                 ),
