@@ -32,12 +32,11 @@ class Book {
             ? List<String>.from(bookInfo['authors'])
             : [],
         publisher: bookInfo['publisher'] ?? "Unknown",
-        publishedDate: bookInfo['publishedDate'] ?? "",
+        publishedDate: bookInfo['publishedDate'],
         description: bookInfo['description'],
         pageCount: bookInfo['pageCount'],
-        averageRating: bookInfo['averageRating'] != null
-            ? bookInfo['averageRating'].toDouble()
-            : 0.0,
+        averageRating: bookInfo['averageRating'] =
+            bookInfo['averageRating'].toDouble(),
         categories: bookInfo['categories'] != null
             ? List<String>.from(bookInfo['categories'])
             : [],
@@ -49,7 +48,9 @@ class Book {
       var validation = element['volumeInfo']['imageLinks'] != null &&
           element['volumeInfo']['imageLinks']['thumbnail'] != null &&
           element['volumeInfo']['description'] != null &&
-          element['volumeInfo']['pageCount'] != null;
+          element['volumeInfo']['pageCount'] != null &&
+          element['volumeInfo']['averageRating'] != null &&
+          element['volumeInfo']['publishedDate'] != null;
       return validation;
     }).map((data) {
       return Book.fromJson(data);
