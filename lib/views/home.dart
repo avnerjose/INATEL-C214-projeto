@@ -102,8 +102,13 @@ class _HomePageState extends State<HomePage> {
                         childAspectRatio: 0.667,
                         children: List.generate(
                             _books.length,
-                            (index) => Image.network(
-                                  _books[index].imageUrl,
+                            (index) => GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, "/detail");
+                                  },
+                                  child: Image.network(
+                                    _books[index].imageUrl,
+                                  ),
                                 )),
                       ),
               ),

@@ -18,7 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primaryColor: AppColors.dark,
           primarySwatch: createMaterialColor(AppColors.green)),
-      home: const BookDetailPage(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => const HomePage(),
+        "/detail": (context) => const BookDetailPage()
+      },
     );
   }
 }
