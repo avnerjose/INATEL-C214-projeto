@@ -1,3 +1,5 @@
+import 'package:books_app/core/app_colors.dart';
+import 'package:books_app/views/book_detail.dart';
 import 'package:books_app/views/home.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.white,
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(),
+          primaryColor: AppColors.dark,
+          primarySwatch: createMaterialColor(AppColors.green)),
+      home: const BookDetailPage(),
     );
   }
 }
