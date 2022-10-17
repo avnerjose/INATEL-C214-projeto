@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 Future<List<Book>> fetchBooksBySearch(String query) async {
   final res = await http.get(Uri.parse(
-      'https://www.googleapis.com/books/v1/volumes?q=$query'));
+      'https://www.googleapis.com/books/v1/volumes?q=$query&key=AIzaSyDggkm2pDO3txK4ZwMmPgpOQWvxyc6U4cw'));
   Map data = jsonDecode(res.body);
   List items = data['items'];
 
