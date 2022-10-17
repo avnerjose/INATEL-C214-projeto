@@ -1,8 +1,9 @@
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:books_app/controllers/fetchBook.dart';
 import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/models/book.dart';
+import 'package:books_app/views/book_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   late List<Book> _books = [];
   final textEditingController = TextEditingController();
   bool isLoading = false;
+  Timer? timeHandle;
 
   @override
   void initState() {
@@ -32,14 +34,21 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _getBooks() async {
     if (textEditingController.text.trim() != "") {
-      setState(() {
-        isLoading = true;
-      });
       var query = textEditingController.text.split(' ').join("+");
-      var books = await fetchBooksBySearch(query);
-      setState(() {
-        _books = books;
-        isLoading = false;
+
+      if (timeHandle != null) {
+        timeHandle?.cancel();
+      }
+
+      timeHandle = Timer(const Duration(seconds: 1), () async {
+        setState(() {
+          isLoading = true;
+        });
+        var books = await fetchBooksBySearch(query);
+        setState(() {
+          _books = books;
+          isLoading = false;
+        });
       });
     } else {
       setState(() {
@@ -104,7 +113,12 @@ class _HomePageState extends State<HomePage> {
                             _books.length,
                             (index) => GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, "/detail");
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                BookDetailPage(
+                                                    book: _books[index])));
                                   },
                                   child: Image.network(
                                     _books[index].imageUrl,
