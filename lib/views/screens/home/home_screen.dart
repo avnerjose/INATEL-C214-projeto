@@ -1,5 +1,6 @@
 import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/views/screens/bookSearch/book_search_screen.dart';
+import 'package:books_app/views/screens/userBookshelf/user_bookshelf.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   static const List<Widget> pages = [
     BookSearchScreen(),
-    BookSearchScreen(),
+    UserBookshelfScreen(),
   ];
 
   @override
@@ -28,8 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
           _selectedIndex = index;
         }),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search')
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Busca'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.book_rounded), label: 'Sua estante')
         ],
       ),
     );
