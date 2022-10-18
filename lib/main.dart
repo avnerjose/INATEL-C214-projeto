@@ -1,5 +1,5 @@
 import 'package:books_app/core/app_colors.dart';
-import 'package:books_app/views/home.dart';
+import 'package:books_app/views/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,6 +17,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primaryColor: AppColors.dark,
             primarySwatch: createMaterialColor(AppColors.green)),
-        home: const HomePage());
+        home: const HomeScreen());
   }
 }

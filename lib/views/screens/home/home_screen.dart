@@ -3,18 +3,18 @@ import 'dart:async';
 import 'package:books_app/controllers/fetchBook.dart';
 import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/models/book.dart';
-import 'package:books_app/views/book_detail.dart';
+import 'package:books_app/views/screens/bookDetail/book_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   late List<Book> _books = [];
   final textEditingController = TextEditingController();
   bool isLoading = false;
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                BookDetailPage(
+                                                BookDetailScreen(
                                                     book: _books[index])));
                                   },
                                   child: Image.network(

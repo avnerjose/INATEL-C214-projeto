@@ -3,8 +3,8 @@ import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/models/book.dart';
 import 'package:flutter/material.dart';
 
-class BookDetailPage extends StatelessWidget {
-  const BookDetailPage({super.key, required this.book});
+class BookDetailScreen extends StatelessWidget {
+  const BookDetailScreen({super.key, required this.book});
 
   final Book book;
 
