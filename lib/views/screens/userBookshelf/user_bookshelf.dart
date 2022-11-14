@@ -1,54 +1,87 @@
+import 'package:books_app/controllers/firebase_db.dart';
 import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/models/book.dart';
+import 'package:books_app/views/screens/userBookshelf/components/books_list.dart';
 import 'package:books_app/views/widgets/book_list_item.dart';
 import 'package:flutter/material.dart';
 
-class UserBookshelfScreen extends StatelessWidget {
+class UserBookshelfScreen extends StatefulWidget {
   UserBookshelfScreen({Key? key}) : super(key: key);
 
-  final Book _book = Book(
-      id: "Id",
-      title: "Harry Potter e o cálice de fogo e alguma coisa muito louca",
-      authors: ['Jk Rowling'],
-      publisher: 'Rocco',
-      publishedDate: "2009",
-      description:
-          "losfasd ajsdl fjaldsjf lajsdfklja sdlfkjasldk jfalsatydj flajsdklfa",
-      pageCount: 200,
-      categories: ['Fanstasy'],
-      averageRating: 4,
-      imageUrl:
-          "https://books.google.com/books/content?id=yjUQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");
+  @override
+  State<UserBookshelfScreen> createState() => _UserBookshelfScreenState();
+}
+
+class _UserBookshelfScreenState extends State<UserBookshelfScreen> {
+  List<Book> alreadyReadBooks = [];
+  List<Book> wishListBooks = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    setState(() {
+      isLoading = true;
+    });
+    FirebaseDBHelper().getAllBooks().then((e) => {
+          setState(() {
+            alreadyReadBooks =
+                e.where((e) => e.state == BookState.read).toList();
+            wishListBooks =
+                e.where((e) => e.state == BookState.wishlist).toList();
+          })
+        });
+    setState(() {
+      isLoading = false;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: AppColors.dark,
-        title: const Text(
-          'Sua estante',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      backgroundColor: AppColors.background,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Column(children: [
-          BookListItem(
-              title: _book.title,
-              authors: _book.authors,
-              imageUrl: _book.imageUrl,
-              averageRating: _book.averageRating),
-          const SizedBox(height: 8),
-          BookListItem(
-              title: _book.title,
-              authors: _book.authors,
-              imageUrl: _book.imageUrl,
-              averageRating: _book.averageRating)
-        ]),
-      ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            elevation: 0,
+            backgroundColor: AppColors.dark,
+            title: const Text(
+              'Sua estante',
+              style: TextStyle(color: Colors.white),
+            ),
+            bottom: const TabBar(
+              tabs: [
+                Tab(
+                  text: "Livros lidos",
+                ),
+                Tab(
+                  text: "Lista de desejos",
+                )
+              ],
+            ),
+          ),
+          backgroundColor: AppColors.background,
+          body: TabBarView(
+            children: [
+              isLoading
+                  ? const Center(
+                      child: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator()),
+                    )
+                  : BooksList(books: alreadyReadBooks),
+              isLoading
+                  ? const Center(
+                      child: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator()),
+                    )
+                  : BooksList(books: wishListBooks)
+            ],
+          )),
     );
   }
 }
