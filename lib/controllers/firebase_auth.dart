@@ -46,7 +46,7 @@ class FirebaseAuthHelper {
         app: Firebase.app(), persistence: Persistence.NONE);
 
     if (rememberMe) {
-      await auth.setPersistence(Persistence.LOCAL);
+      await auth.setPersistence(Persistence.SESSION);
     }
   }
 }
