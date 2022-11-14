@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:books_app/views/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class BackgroundImage extends StatelessWidget {
@@ -35,7 +36,8 @@ class BackgroundImage extends StatelessWidget {
                   shape: const CircleBorder(),
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
                 },
                 child: const Icon(Icons.chevron_left),
               )))
