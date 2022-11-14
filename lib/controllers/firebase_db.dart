@@ -20,6 +20,18 @@ class FirebaseDBHelper {
     await ref.update(book.toJson());
   }
 
+  Future<List<Book>> getAllBooks() async {
+    final ref = FirebaseDatabase.instance.ref('books');
+    final snapshot = await ref.get();
+    final value = snapshot.value as Map<dynamic, dynamic>;
+    List<Book> books = [];
+    value.forEach((key, value) {
+      books.add(Book.fromJson(value));
+    });
+
+    return books;
+  }
+
   Future<Book?> getBookById(String id) async {
     final ref = FirebaseDatabase.instance.ref('books/$id');
     final snapshot = await ref.get();
