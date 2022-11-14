@@ -1,3 +1,34 @@
+enum BookState {
+  none,
+  read,
+  wishlist;
+
+  @override
+  String toString() {
+    switch (this) {
+      case BookState.none:
+        return 'none';
+      case BookState.read:
+        return 'read';
+      case BookState.wishlist:
+        return 'wishlist';
+    }
+  }
+
+  static BookState fromString(String state) {
+    switch (state) {
+      case 'none':
+        return BookState.none;
+      case 'read':
+        return BookState.read;
+      case 'wishlist':
+        return BookState.wishlist;
+    }
+
+    return BookState.none;
+  }
+}
+
 class Book {
   final String id;
   final String title;
@@ -9,50 +40,55 @@ class Book {
   final List<String> categories;
   final double averageRating;
   final String imageUrl;
+  BookState state;
 
-  Book({
-    required this.id,
-    required this.title,
-    required this.authors,
-    required this.publisher,
-    required this.publishedDate,
-    required this.description,
-    required this.pageCount,
-    required this.categories,
-    required this.averageRating,
-    required this.imageUrl,
-  });
+  Book(
+      {required this.id,
+      required this.title,
+      required this.authors,
+      required this.publisher,
+      required this.publishedDate,
+      required this.description,
+      required this.pageCount,
+      required this.categories,
+      required this.averageRating,
+      required this.imageUrl,
+      this.state = BookState.none});
 
   factory Book.fromJson(dynamic json) {
-    var bookInfo = json['volumeInfo'];
     return Book(
         id: json['id'],
-        title: bookInfo['title'],
-        authors: bookInfo['authors'] != null
-            ? List<String>.from(bookInfo['authors'])
-            : [],
-        publisher: bookInfo['publisher'] ?? "Unknown",
-        publishedDate: bookInfo['publishedDate'],
-        description: bookInfo['description'],
-        pageCount: bookInfo['pageCount'],
-        averageRating: bookInfo['averageRating'] =
-            bookInfo['averageRating'].toDouble(),
-        categories: bookInfo['categories'] != null
-            ? List<String>.from(bookInfo['categories'])
-            : [],
-        imageUrl: bookInfo['imageLinks']['thumbnail']);
+        title: json['title'],
+        authors: json['authors'].split(' '),
+        publisher: json['publisher'],
+        publishedDate: json['publishedDate'],
+        description: json['description'],
+        pageCount: json['pageCount'],
+        averageRating: json['averageRating'].toDouble(),
+        categories:
+            json['categories'] != null ? json['categories'].split(' ') : [],
+        imageUrl: json['imageUrl'],
+        state: json['state'] != null
+            ? BookState.fromString(json['state'])
+            : BookState.none);
   }
 
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'authors': authors.join(' '),
+        'publisher': publisher,
+        'publishedDate': publishedDate,
+        'description': description,
+        'pageCount': pageCount,
+        'averageRating': averageRating,
+        'categories': categories.join(' '),
+        'imageUrl': imageUrl,
+        'state': state.toString()
+      };
+
   static List<Book> booksFromSnapshot(List snapshot) {
-    return snapshot.where((element) {
-      var validation = element['volumeInfo']['imageLinks'] != null &&
-          element['volumeInfo']['imageLinks']['thumbnail'] != null &&
-          element['volumeInfo']['description'] != null &&
-          element['volumeInfo']['pageCount'] != null &&
-          element['volumeInfo']['averageRating'] != null &&
-          element['volumeInfo']['publishedDate'] != null;
-      return validation;
-    }).map((data) {
+    return snapshot.map((data) {
       return Book.fromJson(data);
     }).toList();
   }
