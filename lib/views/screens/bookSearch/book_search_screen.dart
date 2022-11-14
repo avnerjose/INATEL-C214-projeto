@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:books_app/controllers/fetchBook.dart';
+import 'package:books_app/controllers/books_api.dart';
 import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/models/book.dart';
 import 'package:books_app/views/screens/bookDetail/book_detail_screen.dart';
@@ -44,7 +44,7 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
         setState(() {
           isLoading = true;
         });
-        var books = await fetchBooksBySearch(query);
+        var books = await BooksAPI.fetchBooksBySearch(query);
         setState(() {
           _books = books;
           isLoading = false;
@@ -61,6 +61,7 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           backgroundColor: AppColors.dark,
           elevation: 0,
