@@ -1,19 +1,34 @@
+import 'package:books_app/controllers/firebase_db.dart';
 import 'package:books_app/core/app_colors.dart';
+import 'package:books_app/views/screens/bookDetail/book_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class BookListItem extends StatelessWidget {
+  final String id;
+  final String title;
+  final List<String> authors;
+  final String imageUrl;
+  final double averageRating;
+
   const BookListItem(
       {Key? key,
+      required this.id,
       required this.title,
       required this.authors,
       required this.imageUrl,
       required this.averageRating})
       : super(key: key);
 
-  final String title;
-  final List<String> authors;
-  final String imageUrl;
-  final double averageRating;
+  Future<void> _handleNavigateToDetail(context) async {
+    final book = await FirebaseDBHelper().getBookById(id);
+
+    if (book != null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookDetailScreen(book: book)));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +66,9 @@ class BookListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await _handleNavigateToDetail(context);
+                  },
                   style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 56, vertical: 8),
