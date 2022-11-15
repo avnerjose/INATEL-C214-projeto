@@ -5,7 +5,6 @@ class FirebaseAuthHelper {
   Future<void> signUp(
       String name, String email, String password, bool rememberMe) async {
     try {
-      await handleRememberMe(rememberMe);
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = credential.user;
@@ -17,13 +16,12 @@ class FirebaseAuthHelper {
         throw "O email já está sendo usado";
       }
     } catch (e) {
-      print(e);
+      rethrow;
     }
   }
 
   Future<void> signIn(String email, String password, bool rememberMe) async {
     try {
-      await handleRememberMe(rememberMe);
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
@@ -33,7 +31,7 @@ class FirebaseAuthHelper {
         throw 'Usuário não encontrado ou desativado';
       }
     } catch (e) {
-      print(e);
+      rethrow;
     }
   }
 
@@ -41,12 +39,25 @@ class FirebaseAuthHelper {
     await FirebaseAuth.instance.signOut();
   }
 
-  Future<void> handleRememberMe(bool rememberMe) async {
-    final auth = FirebaseAuth.instanceFor(
-        app: Firebase.app(), persistence: Persistence.NONE);
+  Future<void> editProfile(
+      String name, String email, String password, String photoURL) async {
+    try {
+      User user = FirebaseAuth.instance.currentUser!;
 
-    if (rememberMe) {
-      await auth.setPersistence(Persistence.SESSION);
+      if (name != user.displayName && name.isNotEmpty) {
+        await user.updateDisplayName(name);
+      }
+      if (email != user.email && email.isNotEmpty) {
+        await user.updateEmail(email);
+      }
+      if (photoURL != user.photoURL && photoURL.isNotEmpty) {
+        await user.updatePhotoURL(photoURL);
+      }
+      if (password.isNotEmpty) {
+        await user.updatePassword(password);
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }
