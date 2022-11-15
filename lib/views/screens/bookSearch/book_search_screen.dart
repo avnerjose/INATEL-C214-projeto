@@ -61,6 +61,15 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
           automaticallyImplyLeading: false,
           centerTitle: true,
           backgroundColor: AppColors.dark,
