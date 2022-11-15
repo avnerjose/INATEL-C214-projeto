@@ -2,11 +2,10 @@ import 'package:books_app/controllers/firebase_db.dart';
 import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/models/book.dart';
 import 'package:books_app/views/screens/userBookshelf/components/books_list.dart';
-import 'package:books_app/views/widgets/book_list_item.dart';
 import 'package:flutter/material.dart';
 
 class UserBookshelfScreen extends StatefulWidget {
-  UserBookshelfScreen({Key? key}) : super(key: key);
+  const UserBookshelfScreen({Key? key}) : super(key: key);
 
   @override
   State<UserBookshelfScreen> createState() => _UserBookshelfScreenState();
@@ -42,6 +41,15 @@ class _UserBookshelfScreenState extends State<UserBookshelfScreen> {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            ),
             automaticallyImplyLeading: false,
             centerTitle: true,
             elevation: 0,
