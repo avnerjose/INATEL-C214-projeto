@@ -3,6 +3,7 @@ import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/views/screens/home/home_screen.dart';
 import 'package:books_app/views/screens/register/register_screen.dart';
 import 'package:books_app/views/widgets/form_input.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> handleSignIn() async {
     try {
-      FirebaseAuthHelper authHelper = FirebaseAuthHelper();
+      FirebaseAuthHelper authHelper = FirebaseAuthHelper(FirebaseAuth.instance);
       await authHelper.signIn(
           _emailController.text, _passwordController.text, _rememberMe);
       setState(() {

@@ -60,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     try {
-      FirebaseAuthHelper authHelper = FirebaseAuthHelper();
+      FirebaseAuthHelper authHelper = FirebaseAuthHelper(FirebaseAuth.instance);
       await authHelper.signUp(_nameController.text, _emailController.text,
           _passwordController.text, _rememberMe);
       setState(() {

@@ -6,6 +6,7 @@ import 'package:books_app/models/book.dart';
 import 'package:books_app/views/screens/bookDetail/book_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class BookSearchScreen extends StatefulWidget {
   const BookSearchScreen({Key? key}) : super(key: key);
@@ -32,24 +33,34 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
     super.dispose();
   }
 
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
   Future<void> _getBooks() async {
     if (textEditingController.text.trim() != "") {
       var query = textEditingController.text.split(' ').join("+");
 
-      if (timeHandle != null) {
-        timeHandle?.cancel();
-      }
+      if (mounted) {
+        if (timeHandle != null) {
+          timeHandle?.cancel();
+        }
 
-      timeHandle = Timer(const Duration(seconds: 1), () async {
-        setState(() {
-          isLoading = true;
+        timeHandle = Timer(const Duration(seconds: 1), () async {
+          setState(() {
+            isLoading = true;
+          });
+          final booksAPI = BooksAPI(client: http.Client());
+          var books = await booksAPI.fetchBooksBySearch(query);
+          setState(() {
+            _books = books;
+            isLoading = false;
+          });
         });
-        var books = await BooksAPI.fetchBooksBySearch(query);
-        setState(() {
-          _books = books;
-          isLoading = false;
-        });
-      });
+      }
     } else {
       setState(() {
         _books = [];
@@ -123,7 +134,7 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
                             _books.length,
                             (index) => GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>

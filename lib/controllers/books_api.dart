@@ -3,16 +3,25 @@ import 'package:books_app/models/book.dart';
 import 'package:http/http.dart' as http;
 
 class BooksAPI {
-  static const String _apiEndpoint =
+  late http.Client client;
+  static const String apiEndpoint =
       "https://www.googleapis.com/books/v1/volumes";
 
-  static Future<List<Book>> fetchBooksBySearch(String query) async {
-    final res = await http.get(Uri.parse('$_apiEndpoint?q=$query&key=AIzaSyDggkm2pDO3txK4ZwMmPgpOQWvxyc6U4cw'));
+  BooksAPI({required this.client});
+
+  Future<List<Book>> fetchBooksBySearch(String query) async {
+    final res = await client.get(Uri.parse(
+        '$apiEndpoint?q=$query&key=AIzaSyDggkm2pDO3txK4ZwMmPgpOQWvxyc6U4cw'));
     Map data = jsonDecode(res.body);
+
     List items = data['items'];
     List convertedItems = filterApiBooks(items)
         .map((item) => handleApiBookMapConversion(item))
         .toList();
+
+    if (convertedItems.isEmpty) {
+      return [];
+    }
 
     if (res.statusCode == 200) {
       return Book.booksFromSnapshot(convertedItems);
@@ -46,8 +55,8 @@ class BooksAPI {
 
   static List filterApiBooks(List apiBooks) {
     return apiBooks.where((element) {
-      var validation = element['volumeInfo']['imageLinks'] != null &&
-          element['volumeInfo']['imageLinks']['thumbnail'] != null &&
+      var validation = element['volumeInfo']?['imageLinks'] != null &&
+          element['volumeInfo']?['imageLinks']?['thumbnail'] != null &&
           element['volumeInfo']['description'] != null &&
           element['volumeInfo']['pageCount'] != null &&
           element['volumeInfo']['averageRating'] != null &&

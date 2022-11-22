@@ -1,6 +1,8 @@
 import 'package:books_app/controllers/firebase_db.dart';
 import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/views/screens/bookDetail/book_detail_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class BookListItem extends StatelessWidget {
@@ -20,7 +22,9 @@ class BookListItem extends StatelessWidget {
       : super(key: key);
 
   Future<void> _handleNavigateToDetail(context) async {
-    final book = await FirebaseDBHelper().getBookById(id);
+    final book =
+        await FirebaseDBHelper(FirebaseAuth.instance, FirebaseDatabase.instance)
+            .getBookById(id);
 
     if (book != null) {
       Navigator.push(

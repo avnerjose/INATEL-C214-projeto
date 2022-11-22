@@ -6,6 +6,8 @@ import 'package:books_app/views/screens/bookDetail/components/background_image.d
 import 'package:books_app/views/screens/bookDetail/components/description.dart';
 import 'package:books_app/views/screens/bookDetail/components/details.dart';
 import 'package:books_app/views/screens/bookDetail/components/other_info.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailScreen extends StatefulWidget {
@@ -21,16 +23,21 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
   Book book;
 
   Future<void> handleAddToAlreadyRead() async {
-    final isBookOnDb = await FirebaseDBHelper().getBookById(book.id) != null;
+    final isBookOnDb =
+        await FirebaseDBHelper(FirebaseAuth.instance, FirebaseDatabase.instance)
+                .getBookById(book.id) !=
+            null;
 
     setState(() {
       book.state = BookState.read;
     });
 
     if (isBookOnDb) {
-      await FirebaseDBHelper().updateBook(book);
+      await FirebaseDBHelper(FirebaseAuth.instance, FirebaseDatabase.instance)
+          .updateBook(book);
     } else {
-      await FirebaseDBHelper().storeBook(book);
+      await FirebaseDBHelper(FirebaseAuth.instance, FirebaseDatabase.instance)
+          .storeBook(book);
     }
   }
 
@@ -39,7 +46,8 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
       book.state = BookState.none;
     });
 
-    await FirebaseDBHelper().deleteBook(book.id);
+    await FirebaseDBHelper(FirebaseAuth.instance, FirebaseDatabase.instance)
+        .deleteBook(book.id);
   }
 
   Future<void> handleAddToWishlist() async {
@@ -47,7 +55,8 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
       book.state = BookState.wishlist;
     });
 
-    await FirebaseDBHelper().storeBook(book);
+    await FirebaseDBHelper(FirebaseAuth.instance, FirebaseDatabase.instance)
+        .storeBook(book);
   }
 
   Future<void> handleRemoveFromWishlist() async {
@@ -55,12 +64,15 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
       book.state = BookState.none;
     });
 
-    await FirebaseDBHelper().deleteBook(book.id);
+    await FirebaseDBHelper(FirebaseAuth.instance, FirebaseDatabase.instance)
+        .deleteBook(book.id);
   }
 
   @override
   void initState() {
-    FirebaseDBHelper().getBookById(book.id).then((value) {
+    FirebaseDBHelper(FirebaseAuth.instance, FirebaseDatabase.instance)
+        .getBookById(book.id)
+        .then((value) {
       if (value != null) {
         setState(() {
           book = value;

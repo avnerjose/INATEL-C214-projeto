@@ -2,6 +2,8 @@ import 'package:books_app/controllers/firebase_db.dart';
 import 'package:books_app/core/app_colors.dart';
 import 'package:books_app/models/book.dart';
 import 'package:books_app/views/screens/userBookshelf/components/books_list.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class UserBookshelfScreen extends StatefulWidget {
@@ -21,14 +23,16 @@ class _UserBookshelfScreenState extends State<UserBookshelfScreen> {
     setState(() {
       isLoading = true;
     });
-    FirebaseDBHelper().getAllBooks().then((e) => {
-          setState(() {
-            alreadyReadBooks =
-                e.where((e) => e.state == BookState.read).toList();
-            wishListBooks =
-                e.where((e) => e.state == BookState.wishlist).toList();
-          })
-        });
+    FirebaseDBHelper(FirebaseAuth.instance, FirebaseDatabase.instance)
+        .getAllBooks()
+        .then((e) => {
+              setState(() {
+                alreadyReadBooks =
+                    e.where((e) => e.state == BookState.read).toList();
+                wishListBooks =
+                    e.where((e) => e.state == BookState.wishlist).toList();
+              })
+            });
     setState(() {
       isLoading = false;
     });

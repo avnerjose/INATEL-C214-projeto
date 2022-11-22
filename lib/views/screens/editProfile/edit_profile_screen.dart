@@ -60,7 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
 
     try {
-      await FirebaseAuthHelper().editProfile(
+      await FirebaseAuthHelper(FirebaseAuth.instance).editProfile(
           _nameController.text,
           _emailController.text,
           _newPasswordController.text,

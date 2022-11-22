@@ -1,48 +1,62 @@
+import 'package:books_app/shared/exceptions/email_already_used.dart';
+import 'package:books_app/shared/exceptions/invalid_password_or_email.dart';
+import 'package:books_app/shared/exceptions/user_not_found.dart';
+import 'package:books_app/shared/exceptions/weak_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseAuthHelper {
-  Future<void> signUp(
+  final FirebaseAuth _firebaseAuth;
+
+  FirebaseAuthHelper(this._firebaseAuth);
+
+  Future<UserCredential?> signUp(
       String name, String email, String password, bool rememberMe) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
       User? user = credential.user;
       await user?.updateDisplayName(name);
+
+      return credential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        throw "A senha é muito fraca";
+        throw WeakPasswordException();
       } else if (e.code == 'email-already-in-use') {
-        throw "O email já está sendo usado";
+        throw EmailAlreadyUsedException();
       }
     } catch (e) {
       rethrow;
     }
+
+    return null;
   }
 
-  Future<void> signIn(String email, String password, bool rememberMe) async {
+  Future<UserCredential?> signIn(
+      String email, String password, bool rememberMe) async {
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      final credential = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return credential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email' || e.code == 'wrong-password') {
-        throw 'Email ou senha inválidos';
+        throw InvalidPasswordOrEmailException();
       } else if (e.code == 'user-not-found' || e.code == 'user-disabled') {
-        throw 'Usuário não encontrado ou desativado';
+        throw UserNotFoundException();
       }
     } catch (e) {
       rethrow;
     }
+    return null;
   }
 
   Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
+    await _firebaseAuth.signOut();
   }
 
-  Future<void> editProfile(
+  Future<User?> editProfile(
       String name, String email, String password, String photoURL) async {
     try {
-      User user = FirebaseAuth.instance.currentUser!;
+      User user = _firebaseAuth.currentUser!;
 
       if (name != user.displayName && name.isNotEmpty) {
         await user.updateDisplayName(name);
@@ -59,5 +73,6 @@ class FirebaseAuthHelper {
     } catch (e) {
       rethrow;
     }
+    return null;
   }
 }

@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: const Text("Sair",
                   style: TextStyle(color: AppColors.lightGray, fontSize: 16)),
               onTap: () async {
-                await FirebaseAuthHelper().signOut();
+                await FirebaseAuthHelper(FirebaseAuth.instance).signOut();
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
