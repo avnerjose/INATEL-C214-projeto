@@ -36,7 +36,7 @@ Esse projeto foi criado para o trabalho final da disciplina de C214 no INATEL, c
 1. Clone este repositório: 
 
 ```bash
-git clone https://github.com/avnerjose/INATEL-projeto-C214.git && cd INATEL-projeto-C214
+git clone https://github.com/avnerjose/INATEL-C214-projeto.git && cd INATEL-C214-projeto
 ```
 2. Instale as dependências
 
