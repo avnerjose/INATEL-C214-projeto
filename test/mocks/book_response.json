@@ -1,0 +1,75 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 601,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "-bF2CwAAQBAJ",
+      "volumeInfo": {
+        "title": "Harry Potter: A Coleção Completa (1-7)",
+        "authors": ["J.K. Rowling"],
+        "publisher": "Pottermore Publishing",
+        "publishedDate": "2016-01-28",
+        "description": "Quando Harry Potter é deixado em uma porta ainda bebê, ele não faz ideia de que é o Menino Que Sobreviveu, ou de que é famoso em todo o mundo bruxo. Anos depois, ele fica surpreso ao receber uma carta de admissão da Escola de Magia e Bruxaria de Hogwarts e é rapidamente levado em uma aventura mágica como nenhuma outra. Junte-se a Harry e seus amigos leais, Hermione e Ron, nesta história sobre o poder da verdade, amor e esperança. Clássicos do nosso tempo, os ebooks de Harry Potter nunca deixam de oferecer conforto e escapismo. Com sua mensagem de esperança, pertencimento e o poder duradouro da verdade e do amor, a história do Menino Que Sobreviveu continua a encantar gerações de novos leitores.",
+        "industryIdentifiers": [
+          { "type": "ISBN_13", "identifier": "9781781106587" },
+          { "type": "ISBN_10", "identifier": "1781106584" }
+        ],
+        "readingModes": { "text": true, "image": false },
+        "pageCount": 4181,
+        "printType": "BOOK",
+        "categories": ["Juvenile Fiction"],
+        "averageRating": 5,
+        "ratingsCount": 1,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "1.25.28.0.preview.2",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=-bF2CwAAQBAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=-bF2CwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "pt-BR",
+        "previewLink": "http://books.google.com.br/books?id=-bF2CwAAQBAJ&dq=harry+potter&hl=&cd=8&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=-bF2CwAAQBAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://play.google.com/store/books/details?id=-bF2CwAAQBAJ"
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "-bF2CwAAQBAJ",
+      "volumeInfo": {
+        "title": "Harry Potter: A Coleção Completa (1-7)",
+        "authors": ["J.K. Rowling"],
+        "publisher": "Pottermore Publishing",
+        "publishedDate": "2016-01-28",
+        "description": "Quando Harry Potter é deixado em uma porta ainda bebê, ele não faz ideia de que é o Menino Que Sobreviveu, ou de que é famoso em todo o mundo bruxo. Anos depois, ele fica surpreso ao receber uma carta de admissão da Escola de Magia e Bruxaria de Hogwarts e é rapidamente levado em uma aventura mágica como nenhuma outra. Junte-se a Harry e seus amigos leais, Hermione e Ron, nesta história sobre o poder da verdade, amor e esperança. Clássicos do nosso tempo, os ebooks de Harry Potter nunca deixam de oferecer conforto e escapismo. Com sua mensagem de esperança, pertencimento e o poder duradouro da verdade e do amor, a história do Menino Que Sobreviveu continua a encantar gerações de novos leitores.",
+        "industryIdentifiers": [
+          { "type": "ISBN_13", "identifier": "9781781106587" },
+          { "type": "ISBN_10", "identifier": "1781106584" }
+        ],
+        "readingModes": { "text": true, "image": false },
+        "pageCount": 4181,
+        "printType": "BOOK",
+        "categories": ["Juvenile Fiction"],
+        "averageRating": 5,
+        "ratingsCount": 1,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "1.25.28.0.preview.2",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+
+        "language": "pt-BR",
+        "previewLink": "http://books.google.com.br/books?id=-bF2CwAAQBAJ&dq=harry+potter&hl=&cd=8&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=-bF2CwAAQBAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://play.google.com/store/books/details?id=-bF2CwAAQBAJ"
+      }
+    }
+  ]
+}
