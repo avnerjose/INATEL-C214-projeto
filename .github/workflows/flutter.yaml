@@ -22,6 +22,7 @@ jobs:
     - run: flutter pub run build_runner build
     - run: flutter test
   build:
+    needs: tests
     runs-on: ubuntu-latest
     steps:
     
