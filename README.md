@@ -1,5 +1,9 @@
+[![Flutter CI](https://github.com/avnerjose/INATEL-C214-projeto/actions/workflows/flutter.yaml/badge.svg)](https://github.com/avnerjose/INATEL-C214-projeto/actions/workflows/flutter.yaml)
+
 
 <h1 align="center" width="50%">BookControl</h1>
+
+
 <h1 align="center" width="50%">
   <img alt="Dart" width="7%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" />
   <img alt="Flutter" width="7%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" />
@@ -8,10 +12,10 @@
 </h1>
 
 <h1 align="center" >
-<img src="assets/img.png"  width="49%" /> 
-<img src="assets/img2.png" width="49%"/> 
-<img src="assets/img3.png" width="49%"/> 
-<img src="assets/img4.png" width="49%" /> 
+<img src="assets/img.png"  width="24%" /> 
+<img src="assets/img2.png" width="24%"/> 
+<img src="assets/img3.png" width="24%"/> 
+<img src="assets/img4.png" width="24%" /> 
 </h1>
 
 
