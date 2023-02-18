@@ -19,52 +19,53 @@
 </h1>
 
 
-## ⚡️ O projeto
-Esse projeto foi criado para o trabalho final da disciplina de C214 no INATEL, consiste em um aplicativo desenvolvido em Flutter no qual é possível fazer o controle de suas leituras, listando livros que você já leu ou que deseja ler no futuro.
+## ⚡️ The project
+This project was created for the final task for the C214 course in INATEL, it consists in an app developed in Flutter with which is possible to have control over our readings, listing books that you have already read and the ones you want to read in the future.
   
-## 🎯 Funcionalidades
- - Login com email e senha com Firebase
- - Conexão com banco de dados Realtime do Firebase
- - Conexão com a API de livros do Google 
+## 🎯 Features
+ - Login with email and password using Firebase
+ - Firebase Realtime database conection
+ - Google books API connection 
   
 ## 🖥️ Used Technologies
  - [Dart](https://dart.dev/)
  - [Flutter](https://flutter.dev/)
  - [Firebase](https://firebase.google.com/)
  - [Book API Google](https://developers.google.com/books)
-## ⚙️ Dependências
+ 
+## ⚙️ Dependencies
  - [Flutter](https://flutter.dev/)
  
-## 🚀️ Utilizando o projeto
+## 🚀️ Using the projects
 
-1. Clone este repositório: 
+1. Clone the repository: 
 
 ```bash
 git clone https://github.com/avnerjose/INATEL-C214-projeto.git && cd INATEL-C214-projeto
 ```
-2. Instale as dependências
+2. Install all dependencies
 
 ```bash
 flutter pub get
 ```
-3. Inicie um emulador Android com o AndroidStudio
+3. Start an android emulator with AndroidStudio
 ```bash
-emulator -avd <nome_do_emulador_disponível>
+emulator -avd <name_of_the_available_emulador>
 ```
-4. Execute o app
+4. Execute the app
 ```bash
 flutter run
 ``` 
 
-## 🧪 Testes 
+## 🧪 Tests 
 
 
-1. Gerar os Mocks
+1. Generated mocks
 
 ```bash
 flutter pub run build_runner build
 ```
-2. Executar os testes
+2. Run tests
 
 ```bash
 flutter test
